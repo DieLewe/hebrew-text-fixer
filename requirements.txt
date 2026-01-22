@@ -1,0 +1,4 @@
+PyQt5>=5.15.0
+python-docx>=0.8.11
+odfpy>=1.4.1
+regex>=2022.1.18
