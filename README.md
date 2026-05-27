@@ -21,12 +21,26 @@ Affinity Canvas 3 reverses Hebrew text, making it appear backwards. Additionally
 
 ## Installation
 
-### Prerequisites
+### Option 1: Windows Installer (Recommended)
+
+1. Download the latest installer from the [Releases page](https://github.com/DieLewe/hebrew-text-fixer/releases)
+2. Run `HebrewTextFixer-Setup-v1.0.exe`
+3. Follow the installation wizard
+4. The app will be available in your Start Menu and (optionally) Desktop
+
+### Option 2: Standalone Executable
+
+1. Download `HebrewTextFixer.exe` from the [Releases page](https://github.com/DieLewe/hebrew-text-fixer/releases)
+2. Run the executable directly (no installation needed)
+
+### Option 3: Run from Source
+
+#### Prerequisites
 
 - Windows 10 or later
 - Python 3.8 or later
 
-### Setup
+#### Setup
 
 1. Clone or download this repository
 2. Open a terminal in the project folder
@@ -105,6 +119,39 @@ The application uses:
 4. Preserves all non-Hebrew text and spacing unchanged
 
 This "double reversal" compensates for Affinity Canvas's incorrect Hebrew handling.
+
+## Building from Source
+
+### Build Standalone Executable
+
+1. Install dependencies:
+   ```powershell
+   pip install -r requirements.txt
+   pip install pyinstaller
+   ```
+
+2. Build the executable:
+   ```powershell
+   pyinstaller --clean hebrew_fixer.spec
+   ```
+
+3. The executable will be in `dist\HebrewTextFixer.exe`
+
+### Build Windows Installer
+
+1. Download and install [Inno Setup](https://jrsoftware.org/isdl.php)
+
+2. Build using the provided script:
+   ```powershell
+   .\build.ps1
+   ```
+
+3. Or build manually:
+   ```powershell
+   & "C:\Program Files (x86)\Inno Setup 6\ISCC.exe" installer.iss
+   ```
+
+4. The installer will be in `installer\HebrewTextFixer-Setup-v1.0.exe`
 
 ## Troubleshooting
 

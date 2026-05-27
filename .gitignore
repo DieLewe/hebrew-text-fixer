@@ -44,3 +44,11 @@ test_*.odt
 sample_*.txt
 sample_*.docx
 sample_*.odt
+
+# Build artifacts
+build/
+dist/
+installer/
+*.spec
+__pycache__/
+*.pyc
