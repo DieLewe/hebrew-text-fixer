@@ -18,19 +18,36 @@ Write-Host ""
 
 # Step 2: Check if Inno Setup is installed
 Write-Host "Step 2: Checking for Inno Setup..." -ForegroundColor Yellow
-$innoSetupPath = "C:\Program Files (x86)\Inno Setup 6\ISCC.exe"
 
-if (-not (Test-Path $innoSetupPath)) {
-    Write-Host "⚠ Inno Setup not found at: $innoSetupPath" -ForegroundColor Yellow
+# Check multiple possible locations
+$innoSetupPaths = @(
+    "C:\Program Files (x86)\Inno Setup 6\ISCC.exe",
+    "$env:LOCALAPPDATA\Programs\Inno Setup 6\ISCC.exe",
+    "C:\Program Files\Inno Setup 6\ISCC.exe"
+)
+
+$innoSetupPath = $null
+foreach ($path in $innoSetupPaths) {
+    if (Test-Path $path) {
+        $innoSetupPath = $path
+        break
+    }
+}
+
+if (-not $innoSetupPath) {
+    Write-Host "⚠ Inno Setup not found in common installation locations" -ForegroundColor Yellow
     Write-Host ""
     Write-Host "To create the installer:" -ForegroundColor Cyan
     Write-Host "1. Download Inno Setup from: https://jrsoftware.org/isdl.php" -ForegroundColor White
     Write-Host "2. Install Inno Setup" -ForegroundColor White
-    Write-Host "3. Run: & 'C:\Program Files (x86)\Inno Setup 6\ISCC.exe' installer.iss" -ForegroundColor White
+    Write-Host "3. Run this script again: .\build.ps1" -ForegroundColor White
     Write-Host ""
     Write-Host "The executable is ready in the dist\ folder." -ForegroundColor Green
     exit 0
 }
+
+Write-Host "✓ Found Inno Setup at: $innoSetupPath" -ForegroundColor Green
+Write-Host ""
 
 # Step 3: Build installer with Inno Setup
 Write-Host "Step 3: Building Windows installer..." -ForegroundColor Yellow
